@@ -1,0 +1,206 @@
+basePath: /
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.RequestStudent:
+    properties:
+      first_name:
+        type: string
+      last_name:
+        type: string
+      major:
+        type: string
+      student_id:
+        type: string
+    type: object
+  models.ResponseMessage:
+    properties:
+      message:
+        type: string
+    type: object
+  models.ResponseSuccess:
+    properties:
+      data:
+        $ref: '#/definitions/models.Student'
+      message:
+        type: string
+    type: object
+  models.ResponseSuccessGetAll:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Student'
+        type: array
+      message:
+        type: string
+    type: object
+  models.Student:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        $ref: '#/definitions/gorm.DeletedAt'
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      major:
+        type: string
+      student_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: localhost:9000
+info:
+  contact: {}
+  description: API endpoints for students CRUD
+  title: Student API
+  version: "1.0"
+paths:
+  /students:
+    get:
+      description: Get a list of all students
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseSuccessGetAll'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+      summary: Get all students
+      tags:
+      - students
+    post:
+      consumes:
+      - application/json
+      description: Create a new student
+      parameters:
+      - description: Student data
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/models.RequestStudent'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.ResponseSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+      summary: Create a new student
+      tags:
+      - students
+  /students/{id}:
+    delete:
+      description: Delete a student by their ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+      summary: Delete a student by ID
+      tags:
+      - students
+    get:
+      description: Get a student by their ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+      summary: Get a student by ID
+      tags:
+      - students
+    put:
+      consumes:
+      - application/json
+      description: Update a student by their ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated student data
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/models.RequestStudent'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseMessage'
+      summary: Update a student by ID
+      tags:
+      - students
+swagger: "2.0"
