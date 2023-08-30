@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"go-gin-student/utils"
 )
 
 var (
@@ -74,7 +75,7 @@ func StartWebSocketServer() {
 		}
 	})
 
-	http.ListenAndServe(":8081", nil)
+	http.ListenAndServe(":" + utils.GetConfig("WEBSOCKET_PORT"), nil)
 }
 
 func BroadcastMessage(message string) {

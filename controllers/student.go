@@ -33,7 +33,7 @@ func (sc *StudentController) GetAll(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	ws.SendWebSocketUpdate("get all student!")
+	ws.SendWebSocketUpdate("get all student")
 	c.JSON(http.StatusOK, gin.H{"message": "success fetch all students", "data": students})
 }
 

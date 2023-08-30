@@ -38,9 +38,6 @@ func main() {
 
 	routes.SetUpRoutes(r)
 
-	// WebSocket endpoint
-	r.GET("/ws", ws.HandleWebSocket)
-
 	go ws.StartWebSocketServer()
 
 	r.Run(":" + utils.GetConfig("APP_PORT"))

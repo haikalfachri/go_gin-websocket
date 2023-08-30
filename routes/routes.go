@@ -6,12 +6,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
+	ws "go-gin-student/websocket"
 	
 )
 
 func SetUpRoutes(g *gin.Engine) {
 	studentCtrl := controllers.InitStudentContoller()
 	
+	g.GET("/ws", ws.HandleWebSocket)
+
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	g.GET("/students", studentCtrl.GetAll)

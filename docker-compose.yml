@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - 9000:9000
+      - 9001:9001
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: student_crud_db
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 9002:8080
