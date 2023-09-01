@@ -51,13 +51,13 @@ func MigrateDB() {
 
 func SeedStudent() (models.Student, error) {
 	var student models.Student = models.Student{
-		FirstName: "Haikal",
-		LastName: "Fachri",
-		StudentID: "123456789",
-		Major: "Computer Science",
+		FirstName: "test",
+		LastName: "test",
+		StudentID: "test",
+		Major: "test",
 	}
 
-	result := DB.Create(student)
+	result := DB.Create(&student)
 
 	if err := result.Error; err != nil {
 		return models.Student{}, err
@@ -73,7 +73,7 @@ func SeedStudent() (models.Student, error) {
 func CleanSeeders() error {
 	DB.Exec("SET FOREIGN_KEY_CHECKS = 0")
 
-	studentErr := DB.Exec("DELETE FROM students").Error
+	studentErr := DB.Exec("DELETE FROM students WHERE first_name = 'test'").Error
 
 	var isFailed bool = studentErr != nil
 

@@ -13,8 +13,8 @@ type StudentController struct {
 	service services.StudentService
 }
 
-func InitStudentContoller() StudentController {
-	return StudentController{
+func InitStudentContoller() *StudentController {
+	return &StudentController{
 		service: services.InitStudentService(),
 	}
 }

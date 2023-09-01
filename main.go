@@ -28,17 +28,17 @@ func main() {
 
 	database.MigrateDB()
 
-	r := gin.Default()
+	g := gin.Default()
 
 	configCORS := cors.DefaultConfig()
 	configCORS.AllowOrigins = []string{"http://localhost:" + utils.GetConfig("APP_PORT")}
 	configCORS.AllowMethods = []string{"GET", "POST", "PUT", "DELETE"}
 
-	r.Use(cors.New(configCORS))
+	g.Use(cors.New(configCORS))
 
-	routes.SetUpRoutes(r)
+	routes.SetUpRoutes(g)
 
 	go ws.StartWebSocketServer()
 
-	r.Run(":" + utils.GetConfig("APP_PORT"))
+	g.Run(":" + utils.GetConfig("APP_PORT"))
 }
